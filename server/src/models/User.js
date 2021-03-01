@@ -34,6 +34,27 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
+    
+    siteMetadata: {
+        siteTitle: {
+            type: String,
+            required: true
+        },
+        siteDescription: {
+            type: String,
+            required: true
+        }
+    },
+    userIPAddress: {
+        required: true,
+        type: String
+    },
+    userDevices: [{
+        device: {
+            type: String,
+            required: true
+        }
+    }],
     tokens: [{
         token: {
             type: String,

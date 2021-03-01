@@ -7,10 +7,24 @@ const { setExpireTime } = require('../utils/setExpireTime')
 
 // CREATE
 router.post('/api/user', async (req, res) => {
-    const user = new User(req.body)
+    const b = req.body
+    const userIPAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+    const user = new User({
+        name: b.name,
+        email: b.email,
+        password: b.password,
+        userIPAddress,
+        siteMetadata: {
+            siteTitle: b.siteTitle,
+            siteDescription: b.siteDescription
+        },
+        userDevices: [{
+            device: req.headers['user-agent']
+        }]
+    })
 
     try {
-        const cookieExpires = setExpireTime(14)
+        const cookieExpires = setExpireTime(30)
         let secure = ''
         if (process.env.NODE_ENV === 'production') {
             secure = 'secure;'
@@ -41,7 +55,7 @@ router.post(`/api/user/login`, async (req, res) => {
 
 })
 // READ PROFILE
-router.get(`/api/user/me`, auth, async (req, res) => {
+router.get(`/api/user`, auth, async (req, res) => {
     const user = req.user
     res.send(user)
 })

@@ -1,9 +1,12 @@
 <template>
-    <title>{{ msg }}</title>
+    <div>
+        <title>{{ msg }}</title>
+
+    </div>
 </template>
 
 <script>
-import { getApiData } from './GetApiData'
+import getMetaData from './getMetaData'
 
 export default {
     name: 'ApiHello',
@@ -13,7 +16,7 @@ export default {
         }
     },
     async mounted() {
-        let res = await getApiData()
+        let res = await getMetaData()
         console.log(res);
         this.msg = res
     }
