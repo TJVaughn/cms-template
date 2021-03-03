@@ -9,8 +9,19 @@ const publicDirPath = path.join(__dirname, './client/')
 const router = new express.Router()
 
 
-router.get('/api/site-title', async (req, res) => {
-    return res.send("dynamic site-title")
+// const corsOptions = {
+//     origin: ['http://localhost:8080'],
+//     credentials: true,
+//     optionsSuccessStatus: 200
+// }
+
+app.use(router)
+// app.use(cors(corsOptions))
+app.use(express.json())
+
+router.get('/api/test', async (req, res) => {
+    // res.header("Access-Control-Allow-Origin", "origin")
+    return res.send("This is basic test content")
 })
 
 router.get('/app', async(req, res) => {
@@ -18,15 +29,6 @@ router.get('/app', async(req, res) => {
 })
 
 
-const corsOptions = {
-    origin: ['http://localhost:8080'],
-    credentials: true,
-    optionsSuccessStatus: 200
-}
-
-app.use(express.json())
-app.use(router)
-app.use(cors(corsOptions))
 app.use(express.static(`${publicDirPath}/static`))
 
 server.listen(port, () => {
