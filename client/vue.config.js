@@ -1,8 +1,10 @@
 module.exports = {
+    publicPath: '/app',
+    // indexPath: 'app.html',
     chainWebpack: config => {
         config.plugin('html')
         .tap(arg => {
-            arg[0].title = 'Name of blog';
+            arg[0].title = 'Blog Title';
             return arg
         })
     },
