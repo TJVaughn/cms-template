@@ -31,6 +31,12 @@ router.get('/app', async(req, res) => {
 
 app.use(express.static(`${publicDirPath}/static`))
 
+app.set('view engine', 'ejs')
+
+app.get('/', async(req, res) => {
+    res.render(`${publicDirPath}/static/index`)
+})
+
 server.listen(port, () => {
     console.log(`Server is listening on port: ${port}`);
 })

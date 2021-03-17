@@ -2,6 +2,8 @@ const express = require('express')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 const Blog = require('../models/Blog')
+const path = require('path')
+const publicDirPath = path.join(__dirname, '../../../client/')
 
 //Create Blog
 router.post('/api/blog', auth, async (req, res) => {
@@ -27,13 +29,27 @@ router.post('/api/blog', auth, async (req, res) => {
     }
 })
 
-router.get('/api/blog/', async(req, res) => {
+//Read blog by query
+router.get('/blog/:id', async(req, res) => {
     try{
-        const blog = await Blog.find({slug: req.query.s})
-        res.send(blog)
+        const blog = await Blog.findOne({slug: req.params.id})
+        // res.send(blog)
+        res.render(`${publicDirPath}static/blog`, {
+            blog
+        })
     }catch(error){
         return res.send({ error: "There was a problem: " + error })
     }
 })
-
+//read all blogs
+router.get('/blog', async(req, res) => {
+    try {
+        const blogs = await Blog.find()
+        return res.render(`${publicDirPath}static/allBlogs`, {
+            blogs
+        })
+    } catch (error) {
+        return res.send({ error: "There was a problem: " + error })
+    }
+})
 module.exports = router
