@@ -5,10 +5,8 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    metaData: {
-        snippet: {
-            type: String
-        }
+    snippet: {
+        type: String
     },
     tags: [
         {

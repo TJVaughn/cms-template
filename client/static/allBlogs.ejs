@@ -3,15 +3,18 @@
 <head>
     <%- include('./templates/head') %>
 </head>
-<body>
-    <%- include('./templates/nav') %>
-    <div>
-        <% blogs.forEach((blog) => { %> 
-            <h3>
-                <a href=/blog/<%=blog.slug%>>
-                <%= blog.title %></a>
-            </h3>
-        <% }) %> 
-    </div>
-</body>
+    <body>
+        <%- include('./templates/nav') %>
+        <div>
+            <% blogs.forEach((blog) => { %> 
+                <h3>
+                    <a href=/blog/<%=blog.slug%>>
+                    <%= blog.title %></a>
+                </h3>
+                <h4>
+                    <%= blog.snippet %>
+                </h4>
+            <% }) %> 
+        </div>
+    </body>
 </html>
